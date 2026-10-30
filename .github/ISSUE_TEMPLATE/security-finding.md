@@ -1,6 +1,6 @@
 ---
 name: Security finding
-a​​bout: Report a defensive finding in the toolkit or its documentation
+about: Report a defensive finding in the toolkit or its documentation
 title: "[Security] "
 labels: security
 assignees: ""
