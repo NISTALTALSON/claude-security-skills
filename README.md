@@ -13,11 +13,13 @@
 
 <p align="center"><em>Find the issue. Prove the issue. Patch it narrowly. Prove the fix.</em></p>
 
+<p align="center"><img src="assets/security-toolkit-banner.svg" alt="Claude Security Skills Toolkit banner"></p>
+
 ## What this repository provides
 
 This is a curated, defensive toolkit for using Claude Code on web applications, APIs, services, and AI-enabled systems that you own or are explicitly authorized to assess.
 
-It combines Cloudflare's `security-audit` workflow for reconnaissance, coverage-led hunting, independent validation, structured findings, and reports; OWASP-aligned secure coding guidance covering web vulnerabilities, ASVS 5.0, modern language pitfalls, supply-chain risks, and AI-agent security; targeted Trail of Bits plugins for analysis, triage, patching, and validation; and Anthropic's official `/security-review` reference. The reusable operating prompt is in [`PROMPT.md`](PROMPT.md).
+It combines Cloudflare's `security-audit` workflow for reconnaissance, coverage-led hunting, independent validation, structured findings, and reports; OWASP-aligned secure coding guidance covering web vulnerabilities, ASVS 5.0, modern language pitfalls, supply-chain risks, and AI-agent security; targeted Trail of Bits plugins for analysis, triage, patching, and validation; and Anthropic's official `/security-review` reference. The reusable operating prompt is in [`PROMPT.md`](PROMPT.md). The project also includes CI validation, contribution guidance, a security policy, and preserved upstream license notices.
 
 ## Recommended workflow
 
@@ -67,6 +69,10 @@ See [`official-reference/action.yml`](official-reference/action.yml) for the Git
 ## The master prompt
 
 [`PROMPT.md`](PROMPT.md) instructs the agent to establish scope and threat model first, distinguish source review from authorized external testing, trace attacker-controlled input to a reachable security-sensitive sink, reduce false positives through independent validation, assign severity from demonstrated impact, produce minimal reviewable patches, and verify fixes with regression tests, variant analysis, and a clean diff.
+
+## Community and trust
+
+Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before opening a pull request and use [`SECURITY.md`](SECURITY.md) for private vulnerability reports. License and attribution details are in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
 
 ## Safety boundary
 

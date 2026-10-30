@@ -1,0 +1,48 @@
+name: Validate toolkit
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate required files and repository hygiene
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s README.md
+          test -s PROMPT.md
+          test -s LICENSE
+          test -s THIRD_PARTY_NOTICES.md
+          test -s SECURITY.md
+          test -s CONTRIBUTING.md
+          test -s skills/cloudflare-security-audit/SKILL.md
+          test -s skills/owasp-security/SKILL.md
+          ! find . -path './.git' -prune -o -type f \( -name '.env' -o -name '*.pem' -o -name '*.key' \) -print | grep -q .
+          ! grep -RInE 'BEGIN (RSA|OPENSSH|EC) PRIVATE KEY|ghp_[A-Za-z0-9]{20,}|sk-[A-Za-z0-9]{20,}' --exclude-dir=.git .
+
+      - name: Validate YAML frontmatter
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          for path in Path('.').rglob('SKILL.md'):
+              text = path.read_text(encoding='utf-8')
+              assert text.startswith('---\n'), path
+              end = text.find('\n---\n', 4)
+              assert end > 0, path
+              frontmatter = text[4:end]
+              assert re.search(r'^name:\s*\S+', frontmatter, re.M), path
+              assert re.search(r'^description:\s*.+', frontmatter, re.M), path
+          print('Validated skill frontmatter')
+          PY
